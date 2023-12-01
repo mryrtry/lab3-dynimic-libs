@@ -1,4 +1,5 @@
 clang-analyzer-*
+-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
 llvm-include-order
 misc-*
 performance-*
