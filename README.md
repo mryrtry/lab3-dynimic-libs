@@ -85,7 +85,7 @@ struct bmp_header
         uint16_t bfType;
         uint32_t  bfileSize;
         uint32_t bfReserved;
-        uint32_t bOffBits;
+        uint32_t bfOffBits;
         uint32_t biSize;
         uint32_t biWidth;
         uint32_t  biHeight;
