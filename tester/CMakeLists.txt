@@ -16,7 +16,7 @@ foreach(test_dir IN LISTS test_directories)
     add_test(NAME test-${name}
         COMMAND ${CMAKE_COMMAND}
             -DTEST_DIR=${test_dir}
-            -DIMAGE_TRANSFORMER=$<TARGET_FILE:image-transformer>
+            -DIMAGE_TRANSFORM=$<TARGET_FILE:image-transform>
             -DIMAGE_MATCHER=$<TARGET_FILE:image-matcher>
             -P ${CMAKE_CURRENT_SOURCE_DIR}/tester.cmake
     )
@@ -25,4 +25,4 @@ endforeach()
 set(CMAKE_CTEST_ARGUMENTS --output-on-failure -C $<CONFIG>)
 add_custom_target(check
     COMMAND ${CMAKE_CTEST_COMMAND} ${CMAKE_CTEST_ARGUMENTS}
-    DEPENDS image-transformer image-matcher)
+    DEPENDS image-transform image-matcher)

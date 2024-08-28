@@ -4,5 +4,5 @@ file(GLOB_RECURSE sources CONFIGURE_DEPENDS
     include/*.h
 )
 
-add_executable(image-transformer ${sources})
-target_include_directories(image-transformer PRIVATE src include)
+add_executable(image-transform ${sources})
+target_include_directories(image-transform PRIVATE src include)
