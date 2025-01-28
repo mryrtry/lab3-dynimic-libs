@@ -2,8 +2,8 @@
 
 #define BMP_UTILS_H
 
-#include <stdio.h>
 #include "bmp.h"
+#include <stdio.h>
 
 enum read_status validate_bmp_header(FILE* input_file, struct bmp_header* header);
 struct bmp_header create_bmp_header(struct image image);

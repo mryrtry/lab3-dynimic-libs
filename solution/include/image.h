@@ -2,8 +2,8 @@
 
 #define IMAGE_H
 
-#include <stdint.h>
 #include "stdlib.h"
+#include <stdint.h>
 
 struct pixel {
     uint8_t b, g, r;

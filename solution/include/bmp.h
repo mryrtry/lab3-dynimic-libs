@@ -2,8 +2,8 @@
 
 #define BMP_H
 
-#include <stdio.h>
 #include "image.h"
+#include <stdio.h>
 
 #define BMP_FTYPE 0x4D42
 #define BMP_SIZE 40
