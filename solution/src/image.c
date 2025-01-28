@@ -10,8 +10,8 @@ struct image create_image(uint64_t width, uint64_t height) {
 }
 
 // Освобождение кучи
-void free_image(struct image* img) {
-    free(img->data);
+void free_image(struct image* image) {
+    free(image->data);
 }
 
 // Освобождение кучи
