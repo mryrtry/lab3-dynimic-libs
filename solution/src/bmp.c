@@ -1,6 +1,7 @@
-#include <errno.h>
 #include "bmp_utils.h"
 #include "bmp.h"
+#include <errno.h>
+
 
 // Чтение bmp
 enum read_status from_bmp(FILE* input_file, struct image* image) {
