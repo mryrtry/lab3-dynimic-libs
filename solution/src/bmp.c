@@ -19,8 +19,8 @@ enum read_status from_bmp(FILE* input_file, struct image* image) {
 
     uint8_t padding = count_padding(image->width);
 
-    for (uint32_t y = 0; y < image->height; y++) {
-        for (uint32_t x = 0; x < image->width; x++) {
+    for (size_t y = 0; y < image->height; y++) {
+        for (size_t x = 0; x < image->width; x++) {
             if (!fread(&image->data[y * image->width + x], sizeof(struct pixel), 1, input_file)) {
                 free(image->data);
                 return ENOMEM;
@@ -42,8 +42,8 @@ enum write_status to_bmp(FILE* output_file, const struct image* image) {
 
     uint32_t padding = count_padding(image->width);
     size_t pad_byte = 0;
-    for (uint32_t y = 0; y < image->height; y++) {
-        for (uint32_t x = 0; x < image->width; x++) {
+    for (size_t y = 0; y < image->height; y++) {
+        for (size_t x = 0; x < image->width; x++) {
             if (!fwrite(&image->data[y * image->width + x], sizeof(struct pixel), 1, output_file)) {
                 return WRITE_ERROR;
             }
