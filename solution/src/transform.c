@@ -18,6 +18,7 @@ struct image none(const struct image* input_image) {
 
 struct image rotate_90_ccw(const struct image* input_image) {
     struct image transformed = create_image(input_image->height, input_image->width);
+    if (!transformed.data) return transformed;
     for (size_t y = 0; y < input_image->height; y++) {
         for (size_t x = 0; x < input_image->width; x++) {
             transformed.data[offset_by_coords(&transformed, input_image->height - y - 1, x)] = input_image->data[offset_by_coords(input_image, x, y)];
@@ -28,6 +29,7 @@ struct image rotate_90_ccw(const struct image* input_image) {
 
 struct image rotate_90_cw(const struct image* input_image) {
     struct image transformed = create_image(input_image->height, input_image->width);
+    if (!transformed.data) return transformed;
     for (size_t y = 0; y < input_image->height; y++) {
         for (size_t x = 0; x < input_image->width; x++) {
             transformed.data[offset_by_coords(&transformed, y, input_image->width - x - 1)] = input_image->data[offset_by_coords(input_image, x, y)];
@@ -38,6 +40,7 @@ struct image rotate_90_cw(const struct image* input_image) {
 
 struct image flip_horizontal(const struct image* input_image) {
     struct image transformed = create_image(input_image->width, input_image->height);
+    if (!transformed.data) return transformed;
     for (size_t y = 0; y < input_image->height; y++) {
         for (size_t x = 0; x < input_image->width; x++) {
             transformed.data[offset_by_coords(&transformed, input_image->width - x - 1, y)] = input_image->data[offset_by_coords(input_image, x, y)];
@@ -48,6 +51,7 @@ struct image flip_horizontal(const struct image* input_image) {
 
 struct image flip_vertical(const struct image* input_image) {
     struct image transformed = create_image(input_image->width, input_image->height);
+    if (!transformed.data) return transformed;
     for (size_t y = 0; y < input_image->height; y++) {
         for (size_t x = 0; x < input_image->width; x++) {
             transformed.data[offset_by_coords(&transformed, x, input_image->height - y - 1)] = input_image->data[offset_by_coords(input_image, x, y)];

@@ -2,10 +2,11 @@
 
 // Создание объекта image
 struct image create_image(uint64_t width, uint64_t height) {
-    struct image img;
+    struct image img = {0};
+    img.data = malloc(width * height * sizeof(struct pixel));
+    if (!img.data) return img;
     img.width = width;
     img.height = height;
-    img.data = malloc(width * height * sizeof(struct pixel));
     return img;
 }
 

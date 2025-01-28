@@ -45,6 +45,7 @@ int main(int argc, char* argv[]) {
 
     // Применяем функцию трансформации
     struct image output_image = transform_func(&input_image);
+    if (!output_image.data) return ENOMEM;
 
     // Открываем выходной файл
     FILE* output_file = write_file(output_file_path);
