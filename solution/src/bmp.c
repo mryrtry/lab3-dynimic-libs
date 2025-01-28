@@ -42,7 +42,7 @@ enum write_status to_bmp(FILE* output_file, const struct image* image) {
         return WRITE_ERROR;
     }
 
-    uint32_t padding = count_padding(image->width);
+    uint8_t padding = count_padding(image->width);
     size_t pad_byte = 0;
     for (size_t y = 0; y < image->height; y++) {
         for (size_t x = 0; x < image->width; x++) {
