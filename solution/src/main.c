@@ -1,13 +1,14 @@
-#include "image.h"
-#include "bmp.h"
-#include "transform.h"
 #include <errno.h>
+
+#include "bmp.h"
+#include "image.h"
+#include "transform.h"
 
 int main(int argc, char* argv[]) {
 
     // Проверяем количество аргументов
     if (argc != 4) {
-        fprintf(stderr, "Usage: %s <source-image> <output_image-image> <transformation>\n", argv[0]);
+        perror("Not valid argc");
         return EXIT_FAILURE;
     }
 
@@ -21,7 +22,7 @@ int main(int argc, char* argv[]) {
 
     // На нашли функцию -> ENOENT
     if (!transform_func) {
-        fprintf(stderr, "Unknown transform: %s\n", transform);
+        perror("Not valid transform");
         return ENOENT;
     }
 
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
 
     // Не удалось открыть файл -> ENOENT
     if (!input_file) {
-        fprintf(stderr, "Failed to open input file\n");
+        perror("Invalid input file");
         return ENOENT;
     }
 
@@ -43,7 +44,7 @@ int main(int argc, char* argv[]) {
 
     // Не удалось считать -> выдаём соответствующую ошибку
     if (read_status != READ_OK) {
-        fprintf(stderr, "Failed to read BMP file\n");
+        perror("Invalid BMP");
         return read_status;
     }
 
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
     // Не удалось открыть файл -> ENOENT
     if (!output_file) {
         free_heap(&input_image, &output_image);
-        fprintf(stderr, "Failed to open output file\n");
+        perror("Invalid output file");
         return ENOENT;
     }
 
@@ -69,7 +70,7 @@ int main(int argc, char* argv[]) {
     // Не удалось записать -> выдаём соответствующую ошибку
     if (write_status != WRITE_OK) {
         free_heap(&input_image, &output_image);
-        fprintf(stderr, "Failed to write BMP file\n");
+        perror("Failed to write BMP file");
         return write_status;
     }
 

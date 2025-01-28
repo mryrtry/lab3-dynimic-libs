@@ -2,8 +2,8 @@
 
 #define TRANSFORM_H
 
+#include <string.h>
 #include "image.h"
-#include "string.h"
 
 typedef struct image (*transform_func)(const struct image*);
 
