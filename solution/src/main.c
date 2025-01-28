@@ -1,7 +1,7 @@
 #include "bmp.h"
+#include "file_utils.h"
 #include "image.h"
 #include "transform.h"
-#include "file_utils.h"
 #include <errno.h>
 
 int main(int argc, char* argv[]) {

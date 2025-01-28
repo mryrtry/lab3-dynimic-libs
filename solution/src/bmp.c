@@ -17,7 +17,7 @@ enum read_status from_bmp(FILE* input_file, struct image* image) {
     image->data = malloc(image->width * image->height * sizeof(struct pixel));
     if (!image->data) return ENOMEM;
 
-    uint32_t padding = count_padding(image->width);
+    uint8_t padding = count_padding(image->width);
 
     for (uint32_t y = 0; y < image->height; y++) {
         for (uint32_t x = 0; x < image->width; x++) {
