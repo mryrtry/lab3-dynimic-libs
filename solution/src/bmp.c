@@ -2,6 +2,7 @@
 #include "bmp.h"
 #include <errno.h>
 
+#define PIXEL_SIZE sizeof(struct pixel)
 
 // Чтение bmp
 enum read_status from_bmp(FILE* input_file, struct image* image) {
@@ -14,14 +15,14 @@ enum read_status from_bmp(FILE* input_file, struct image* image) {
 
     image->width = header.biWidth;
     image->height = header.biHeight;
-    image->data = malloc(image->width * image->height * sizeof(struct pixel));
+    image->data = malloc(image->width * image->height * PIXEL_SIZE);
     if (!image->data) return ENOMEM;
 
     uint8_t padding = count_padding(image->width);
 
     for (size_t y = 0; y < image->height; y++) {
         for (size_t x = 0; x < image->width; x++) {
-            if (!fread(&image->data[y * image->width + x], sizeof(struct pixel), 1, input_file)) {
+            if (!fread(&image->data[y * image->width + x], PIXEL_SIZE, 1, input_file)) {
                 free(image->data);
                 return ENOMEM;
             }
@@ -44,7 +45,7 @@ enum write_status to_bmp(FILE* output_file, const struct image* image) {
     size_t pad_byte = 0;
     for (size_t y = 0; y < image->height; y++) {
         for (size_t x = 0; x < image->width; x++) {
-            if (!fwrite(&image->data[y * image->width + x], sizeof(struct pixel), 1, output_file)) {
+            if (!fwrite(&image->data[y * image->width + x], PIXEL_SIZE, 1, output_file)) {
                 return WRITE_ERROR;
             }
         }
