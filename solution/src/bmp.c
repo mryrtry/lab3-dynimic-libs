@@ -15,6 +15,7 @@ enum read_status from_bmp(FILE* input_file, struct image* image) {
 
     image->width = header.biWidth;
     image->height = header.biHeight;
+    if (image->width < 0 || image->height < 0) return READ_INVALID_BITS;
     image->data = malloc(image->width * image->height * PIXEL_SIZE);
     if (!image->data) return ENOMEM;
 

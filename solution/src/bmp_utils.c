@@ -31,5 +31,5 @@ struct bmp_header create_bmp_header(struct image image) {
 
 // Подсчёт padding
 uint32_t count_padding(uint32_t width) {
-    return (4 - (width * 3) % 4) % 4;
+    return (BMP_ALIGNMENT - (width * BYTES_PER_PIXEL) % BMP_ALIGNMENT) % BMP_ALIGNMENT;
 }
