@@ -5,6 +5,8 @@
 
 // Чтение bmp
 enum read_status from_bmp(FILE* input_file, struct image* image) {
+    if (!image) return ENOMEM;
+
     struct bmp_header header = {0};
 
     enum read_status validation_status = validate_bmp_header(input_file, &header);
@@ -18,7 +20,7 @@ enum read_status from_bmp(FILE* input_file, struct image* image) {
 
     for (uint32_t y = 0; y < image->height; y++) {
         for (uint32_t x = 0; x < image->width; x++) {
-            if (fread(&image->data[y * image->width + x], sizeof(struct pixel), 1, input_file) != 1) {
+            if (!fread(&image->data[y * image->width + x], sizeof(struct pixel), 1, input_file)) {
                 free(image->data);
                 return ENOMEM;
             }
