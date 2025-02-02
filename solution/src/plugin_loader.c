@@ -7,6 +7,8 @@
 #define PLUGIN_FUNCTION "init_plugin"
 #else
 #include <dlfcn.h>
+#include <dirent.h>
+#include <string.h>
 #define LoadLibrary(name)            dlopen(name, RTLD_LAZY | RTLD_GLOBAL)
 #define FreeLibrary(dll)             dlclose(dll)
 #define GetProcAddress(dll, symbol)  dlsym(dll, symbol)
@@ -36,7 +38,7 @@ void load_transform_plugin(const char* plugin_path) {
     }
 
     // Получаем init_plugin
-    struct transformation_plugin (*init_plugin)(void) = (struct transformation_plugin (*)(void))GetProcAddress(plugin_handle, PLUGIN_FUNCTION);
+    init_transform_plugin init_plugin = GetProcAddress(plugin_handle, PLUGIN_FUNCTION);
 
     // Нет init_plugin -> выходим
     if (!init_plugin) {
@@ -68,7 +70,7 @@ void load_format_plugin(const char* plugin_path) {
     }
 
     // Получаем init_plugin
-    struct format_plugin (*init_plugin)(void) = (struct format_plugin (*)(void))GetProcAddress(plugin_handle, PLUGIN_FUNCTION);
+    init_format_plugin init_plugin = GetProcAddress(plugin_handle, PLUGIN_FUNCTION);
 
     // Нет init_plugin -> выходим
     if (!init_plugin) {
@@ -87,7 +89,7 @@ void load_format_plugin(const char* plugin_path) {
 void load_transform_plugins(const char* plugins_dir) {
     char search_dir_transform[256];
     snprintf(search_dir_transform, sizeof(search_dir_transform), "%s/transform", plugins_dir);
-    char search_path[256];
+    char search_path[512];
     snprintf(search_path, sizeof(search_path), "%s/*%s", search_dir_transform, PLUGIN_EXTENSION);
 
     #ifdef _WIN32
@@ -116,7 +118,7 @@ void load_transform_plugins(const char* plugins_dir) {
         struct dirent* entry;
         while ((entry = readdir(dir)) != NULL) {
             if (strstr(entry->d_name, PLUGIN_EXTENSION) != NULL) {
-                char plugin_path[256];
+                char plugin_path[512];
                 snprintf(plugin_path, sizeof(plugin_path), "%s/%s", search_dir_transform, entry->d_name);
                 load_transform_plugin(plugin_path);
             }
@@ -129,7 +131,7 @@ void load_transform_plugins(const char* plugins_dir) {
 void load_format_plugins(const char* plugins_dir) {
     char search_dir_format[256];
     snprintf(search_dir_format, sizeof(search_dir_format), "%s/format", plugins_dir);
-    char search_path[256];
+    char search_path[512];
     snprintf(search_path, sizeof(search_path), "%s/*%s", search_dir_format, PLUGIN_EXTENSION);
 
     #ifdef _WIN32
@@ -158,7 +160,7 @@ void load_format_plugins(const char* plugins_dir) {
     struct dirent* entry;
     while ((entry = readdir(dir)) != NULL) {
         if (strstr(entry->d_name, PLUGIN_EXTENSION) != NULL) {
-            char plugin_path[256];
+            char plugin_path[512];
             snprintf(plugin_path, sizeof(plugin_path), "%s/%s", search_dir_format, entry->d_name);
             load_format_plugin(plugin_path);
         }

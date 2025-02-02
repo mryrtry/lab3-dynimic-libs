@@ -1,4 +1,5 @@
 #include "../../include/format_plugin.h"
+#include <errno.h>
 
 #define BMP_FTYPE 0x4D42
 #define BMP_SIZE 40

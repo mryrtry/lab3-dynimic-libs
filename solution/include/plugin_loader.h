@@ -11,6 +11,8 @@
 typedef struct image (*transform_func)(const struct image*);
 typedef enum read_status (*from_file_func)(FILE* input_file, struct image* image);
 typedef enum write_status (*to_file_func)(FILE* output_file, struct image* image);
+typedef struct transformation_plugin (*init_transform_plugin)(void);
+typedef struct format_plugin (*init_format_plugin)(void);
 
 struct format_plugin {
     char* extension;
