@@ -14,8 +14,6 @@ struct image {
     struct pixel* data;
 };
 
-struct image create_image(uint64_t width, uint64_t height);
-
 void free_image(struct image* image);
 void free_heap(struct image* input_image, struct image* output_image);
 

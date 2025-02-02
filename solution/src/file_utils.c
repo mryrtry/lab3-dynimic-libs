@@ -14,5 +14,5 @@ FILE* write_file(const char* file_path) {
 
 void close_file(FILE* file) {
     if (!file) perror("Closing file is NULL");
-    if (!fclose(file)) perror("Can't close file");
+    if (fclose(file)) perror("Can't close file");
 }

@@ -45,10 +45,28 @@ if(CLANG_TIDY)
     )
 endif()
 
+add_subdirectory(plugins)
 add_subdirectory(solution)
+
+
 
 option(BUILD_TESTING "Enable tests" ON)
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tester)
 endif()
+
+# Добавьте кастомную цель для копирования файлов
+add_custom_target(copy_files_target ALL
+        DEPENDS image-transform image-matcher
+)
+
+add_custom_command(
+        TARGET copy_files_target POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_BINARY_DIR}/solution/plugins_build
+        ${CMAKE_BINARY_DIR}/tester/plugins_build
+)
+
+# Привязка к сборке
+add_dependencies(copy_files_target image-transform image-matcher)

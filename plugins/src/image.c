@@ -1,4 +1,4 @@
-#include "image.h"
+#include "../include/image.h"
 
 // Освобождение кучи
 void free_image(struct image* image) {

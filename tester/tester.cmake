@@ -8,8 +8,13 @@ set(ENV{LSAN_OPTIONS} "allocator_may_return_null=true")
 set(ENV{MSAN_OPTIONS} "allocator_may_return_null=true")
 
 function(exec_check)
-    if(ARGC EQUAL 5)
-        execute_process(COMMAND ${ARGV1} ${ARGV2} ${ARGV3} ${ARGV4}
+    if (ARGC EQUAL 6)
+        execute_process(COMMAND ${ARGV1} ${ARGV2} ${ARGV3} ${ARGV4} ${ARGV5}
+            OUTPUT_VARIABLE out
+            ERROR_VARIABLE  err
+            RESULT_VARIABLE result)
+    elseif(ARGC EQUAL 5)
+        execute_process(COMMAND ${CMAKE_SOURCE_DIR}/plugins_build/transform ${ARGV1} ${ARGV2} ${ARGV3} ${ARGV4}
             OUTPUT_VARIABLE out
             ERROR_VARIABLE  err
             RESULT_VARIABLE result)
@@ -37,7 +42,7 @@ endfunction()
 file(STRINGS ${TEST_DIR}/param PARAM)
 file(STRINGS ${TEST_DIR}/err_code ERR_CODE)
 file(REMOVE ${TEST_DIR}/output.bmp)
-exec_check(${ERR_CODE} ${IMAGE_TRANSFORM} ${TEST_DIR}/input.bmp ${TEST_DIR}/output.bmp ${PARAM})
+exec_check(${ERR_CODE} ${IMAGE_TRANSFORM} ${CMAKE_BINARY_DIR}/plugins_build ${TEST_DIR}/input.bmp ${TEST_DIR}/output.bmp ${PARAM})
 if(ERR_CODE EQUAL 0)
     exec_check(0 ${IMAGE_MATCHER} ${TEST_DIR}/output.bmp ${TEST_DIR}/output_expected.bmp)
 endif()

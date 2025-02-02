@@ -1,8 +1,0 @@
-//
-// Created by maks0 on 01.02.2025.
-//
-
-#ifndef IMAGE_TRANSFORM_PLUGIN_H
-#define IMAGE_TRANSFORM_PLUGIN_H
-
-#endif //IMAGE_TRANSFORM_PLUGIN_H
